@@ -2,30 +2,43 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VRLookWalk : MonoBehaviour {
+public class VRLookWalk : MonoBehaviour
+{
 	
-	public Transform vrCamera;
+	public Transform VrCamera;
 
-	public float toggleAngleMin = 30.0f;
+	public float ToggleAngleMin = 30.0f;
 
-	public float toggleAngleMax = 90.0f;
+	public float ToggleAngleMax = 90.0f;
 
-	public float speed = 10.0f;
+	public float Speed = 10.0f;
 
 	private CharacterController _characterController;
 
-	void Start () {
-		_characterController = GetComponent<CharacterController>();
+	void Start ()
+	{
+		_characterController = GetComponent<CharacterController> ();
 	}
-		
-	void Update () {
-		float xAngle = vrCamera.eulerAngles.x;
 
-		if (xAngle >= toggleAngleMin && xAngle < toggleAngleMax) {
-			Vector3 forward = vrCamera.TransformDirection (Vector3.forward);
+	private bool IsMoveForwardAngle (Vector3 angle)
+	{
+		return angle.x > ToggleAngleMin && angle.x < ToggleAngleMax;
+	}
 
-			var step = forward * speed;
-			_characterController.SimpleMove (step);
+	private Vector3 NextStep {
+		get {
+			Vector3 step = VrCamera.TransformDirection (Vector3.forward);
+			step *= Speed * Time.deltaTime;
+			step.y = 0;
+			return step;
+		}
+
+	}
+
+	void Update ()
+	{
+		if (IsMoveForwardAngle (VrCamera.eulerAngles)) {
+			_characterController.Move (NextStep);
 		}
 	}
 }
