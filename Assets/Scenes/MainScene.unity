@@ -1150,10 +1150,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 67c85007c82214c6a94f1a7904e590bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vrCamera: {fileID: 1250580524}
-  toggleAngleMin: 30
-  toggleAngleMax: 90
-  speed: 8
+  VrCamera: {fileID: 1250580524}
+  ToggleAngleMin: 30
+  ToggleAngleMax: 90
+  Speed: 10
 --- !u!54 &826046798
 Rigidbody:
   m_ObjectHideFlags: 0
